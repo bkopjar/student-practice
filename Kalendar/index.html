@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Calendar</title>
+    <!--BACKEND
+    <style>{{{payload.style}}}</style>
+    -->
+    <link rel="stylesheet" href="style.css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js" ></script>
+    <link rel="stylesheet" href="https://www.cssscript.com/demo/event-calendar-date-picker/tavo-calendar.css" />
+    <link rel="stylesheet" href="dist/tavo-calendar.css">
+    <script src="https://www.cssscript.com/demo/event-calendar-date-picker/tavo-calendar.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"/>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script> 
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: #f7f7f7;
+        }
+        .container { 
+            margin: 150px auto;
+            max-width: 400px; 
+            transform: scale(1.8);
+        }
+        #my-calendar {
+            max-width: 900px;
+        }
+    </style>
+    <script type="text/javascript">
+        var datesCalendar = [];
+        //BACKEND
+        //var dates = {{{topic}}};
+        var dates = [{"user_id":1596525562,"vacation_end":"2020-09-04","vacation_start":"2020-08-29"},{"user_id":1596525562,"vacation_end":"2020-08-18","vacation_start":"2020-08-05"}];
+        for(let i = 0; i<dates.length; i++){
+            var between = [];
+            var currentDate = new Date(dates[i].vacation_start),
+                end = new Date(dates[i].vacation_end);
+            while (currentDate <= end) {
+                between.push(new moment(currentDate).format("YYYY-MM-DD"));
+                currentDate.setDate(currentDate.getDate() + 1);
+            }
+            datesCalendar.push(between);
+        }    
+    </script>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-sm  navbar-dark">
+        <a class="nav-link" href="add">Add</a>
+        <a class="nav-logout" href="logout">Log out</a>
+    </nav>
+
+    <div class ="main">
+        <div class="container">
+            <div id="my-calendar">
+                <script type="text/javascript">
+                	if(typeof dates !== 'undefined'){
+						const myCalendar = new TavoCalendar('#my-calendar', {
+						                      selected: datesCalendar.toString()
+						                })
+                	} else {
+						const myCalendar = new TavoCalendar('#my-calendar', {
+						                      format: "MM-DD-YYYY"
+						                })
+                	}
+                </script>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
